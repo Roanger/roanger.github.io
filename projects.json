@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Example Project",
+    "description": "Short description of the project. Replace this with your own project summary.",
+    "url": "https://github.com/Roanger/example-project",
+    "demo": "",
+    "tags": ["javascript", "utility"]
+  },
+  {
+    "title": "Coming Soon: Another Project",
+    "description": "I will add this repo in the next two weeks — placeholder for now.",
+    "url": "#",
+    "demo": "",
+    "tags": ["coming-soon"]
+  }
+]
