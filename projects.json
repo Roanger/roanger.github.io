@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Sci-Fi Ring Platform",
+    "description": "Unreal Engine environment: modular ring structure with emissive panels, dynamic lighting, and city backdrop.",
+    "tags": ["Unreal Engine", "Environment", "Lighting", "Shaders"],
+    "image": "images/ring-platform.png",
+    "links": [
+      { "label": "Video", "href": "https://example.com/video" },
+      { "label": "Source/Notes", "href": "https://example.com/notes" }
+    ]
+  }
+]

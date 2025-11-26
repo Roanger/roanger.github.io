@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Roanger · Portfolio</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+    header { padding: 2rem 1rem; border-bottom: 1px solid #ccc; }
+    header h1 { margin: 0 0 .25rem; font-size: 2rem; }
+    header p { margin: 0; opacity: .8; }
+    main { padding: 1rem; max-width: 1000px; margin: 0 auto; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .card { border: 1px solid #ccc; border-radius: .5rem; overflow: hidden; background: canvas; }
+    .thumb { aspect-ratio: 16/9; background: #222; display: grid; place-items: center; color: #fff; font-size: .9rem; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .content { padding: .75rem; }
+    .title { font-weight: 600; margin: 0 0 .25rem; }
+    .desc { margin: 0 0 .5rem; opacity: .9; }
+    .tags { display: flex; flex-wrap: wrap; gap: .25rem; margin-bottom: .5rem; }
+    .tag { font-size: .75rem; padding: .15rem .4rem; border-radius: .25rem; border: 1px solid #888; opacity: .8; }
+    .links { display: flex; gap: .5rem; }
+    .links a { text-decoration: none; border: 1px solid #888; padding: .25rem .5rem; border-radius: .25rem; }
+    footer { padding: 2rem 1rem; opacity: .7; text-align: center; border-top: 1px solid #ccc; margin-top: 2rem; }
+    @media (prefers-color-scheme: dark) {
+      .card, header, footer { border-color: #444; }
+      .tag, .links a { border-color: #666; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Roanger</h1>
+    <p>Interactive 3D · Unreal · Graphics · Tools</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Projects</h2>
+      <div id="projects" class="grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Roanger — Built with GitHub Pages
+  </footer>
+
+  <script>
+    const el = document.getElementById('projects');
+    const yearEl = document.getElementById('year');
+    yearEl.textContent = new Date().getFullYear();
+
+    async function load() {
+      try {
+        const res = await fetch('projects.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Failed to load projects.json');
+        const projects = await res.json();
+        render(projects);
+      } catch (err) {
+        el.innerHTML = '<p>Could not load projects. Ensure <code>projects.json</code> exists in the repository.</p>';
+        console.error(err);
+      }
+    }
+
+    function render(items) {
+      el.innerHTML = items.map(p => `
+        <article class="card">
+          <div class="thumb">
+            ${p.image ? `<img src="${p.image}" alt="${p.title} preview" loading="lazy" />`
+                      : `${p.title}`}
+          </div>
+          <div class="content">
+            <h3 class="title">${p.title}</h3>
+            <p class="desc">${p.description ?? ''}</p>
+            <div class="tags">
+              ${(p.tags ?? []).map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+            <div class="links">
+              ${p.links?.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join('') ?? ''}
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    load();
+  </script>
+</body>
+</html>
