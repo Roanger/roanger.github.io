@@ -15,5 +15,22 @@
         "href": "https://github.com/Roanger/Squid-Bubbles"
       }
     ]
+  },
+  {
+    "title": "Cyber Rayne",
+    "description": "A cyberpunk-themed JRPG featuring pixel-art graphics and Vulkan-based rendering.",
+    "tags": [
+      "C++",
+      "Vulkan",
+      "Game Development",
+      "JRPG"
+    ],
+    "image": "images/cyber-rayne.jpg",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/Roanger/Cyber_Rayne"
+      }
+    ]
   }
 ]
