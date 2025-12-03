@@ -32,5 +32,22 @@
         "href": "https://github.com/Roanger/Cyber_Rayne"
       }
     ]
+  },
+  {
+    "title": "Tinker Action RPG",
+    "description": "A work-in-progress Action RPG developed in Godot 4.4, featuring a flexible class system and dynamic combat.",
+    "tags": [
+      "Godot",
+      "GDScript",
+      "Action RPG",
+      "In Development"
+    ],
+    "image": "images/Tinker_Title_Screen.png",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/Roanger/ActionRPG-In_Progress-"
+      }
+    ]
   }
 ]
