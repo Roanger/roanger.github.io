@@ -49,5 +49,22 @@
         "href": "https://github.com/Roanger/ActionRPG-In_Progress-"
       }
     ]
+  },
+  {
+    "title": "Iron Reclamation",
+    "description": "A team-based action game developed in Unreal Engine 5, featuring responsive combat and custom character assets.",
+    "tags": [
+      "Unreal Engine 5",
+      "C++",
+      "Action",
+      "Team Project"
+    ],
+    "image": "images/IronReclamationBanner.png",
+    "links": [
+      {
+        "label": "Itch.io",
+        "href": "https://lghts.itch.io/iron-reclamation"
+      }
+    ]
   }
 ]
