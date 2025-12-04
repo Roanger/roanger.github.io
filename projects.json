@@ -52,7 +52,7 @@
   },
   {
     "title": "Iron Reclamation",
-    "description": "A team-based action game developed in Unreal Engine 5, featuring responsive combat and custom character assets.",
+    "description": "A first / third person action game developed in Unreal Engine 5 and C++, featuring responsive combat and custom character assets.",
     "tags": [
       "Unreal Engine 5",
       "C++",
