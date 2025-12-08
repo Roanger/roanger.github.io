@@ -3,11 +3,37 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Roanger – Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
+    /* -------------------------------------
+       1. Variables & Reset
+       ------------------------------------- */
     :root {
-      color-scheme: light dark;
+      /* Colors */
+      --bg-color: #0d1117;
+      --text-color: #ffffff;
+      --text-muted: #a0a0a0;
+      --accent-color: #00d4ff;
+      --accent-hover: #00a3cc;
+      --glass-bg: rgba(22, 27, 34, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --card-bg: rgba(30, 35, 45, 0.6);
+
+      /* Spacing & Layout */
+      --section-spacing: 5rem;
+      --container-width: 1100px;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
@@ -16,170 +42,434 @@
       background-position: center;
       background-attachment: fixed;
       background-repeat: no-repeat;
-      color: #fff;
+      background-color: var(--bg-color);
+      /* Fallback */
+      color: var(--text-color);
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    header {
-      padding: 2rem 1rem;
-      border-bottom: 1px solid #ccc;
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: 0.3s;
     }
 
-    header h1 {
-      margin: 0 0 .25rem;
-      font-size: 2rem;
-    }
-
-    header p {
+    h1,
+    h2,
+    h3,
+    p {
       margin: 0;
-      opacity: .8;
     }
 
-    main {
-      padding: 1rem;
-      max-width: 1000px;
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* -------------------------------------
+       2. Utility Classes
+       ------------------------------------- */
+    .container {
+      max-width: var(--container-width);
       margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--accent-color);
+      color: #0b1d24;
+      font-weight: 600;
+      border-radius: 50px;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .section-title span {
+      border-bottom: 3px solid var(--accent-color);
+    }
+
+    /* -------------------------------------
+       3. Navigation
+       ------------------------------------- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: 0.3s;
+    }
+
+    .navbar.scrolled {
+      background: rgba(13, 17, 23, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 0.75rem 0;
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      /* Gradient Text */
+      background: linear-gradient(90deg, #fff, var(--accent-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      opacity: 0.8;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--accent-color);
+    }
+
+    /* -------------------------------------
+       4. Hero Section
+       ------------------------------------- */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 60px;
+      /* offset for fixed header */
+    }
+
+    .hero-content h1 {
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    /* -------------------------------------
+       5. About Section
+       ------------------------------------- */
+    .about {
+      padding: var(--section-spacing) 0;
+    }
+
+    .about-card {
+      padding: 3rem;
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 2rem;
+    }
+
+    /* Placeholder for avatar if needed, using initials for now */
+    .avatar-placeholder {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-color), #005f73);
+      display: grid;
+      place-items: center;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .about-text {
+      max-width: 700px;
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+      color: #e0e0e0;
+    }
+
+    /* -------------------------------------
+       6. Projects Section
+       ------------------------------------- */
+    .projects {
+      padding: var(--section-spacing) 0;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
     }
 
-    .card {
-      border: 1px solid #ccc;
-      border-radius: .5rem;
+    .project-card {
+      border-radius: var(--radius);
       overflow: hidden;
-      background: canvas;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border-color: var(--accent-color);
     }
 
     .thumb {
       aspect-ratio: 16/9;
-      background: #222;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      font-size: .9rem;
+      background: #111;
+      overflow: hidden;
+      position: relative;
     }
 
     .thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
+      transition: transform 0.5s;
     }
 
-    .content {
-      padding: .75rem;
+    .project-card:hover .thumb img {
+      transform: scale(1.05);
     }
 
-    .title {
-      font-weight: 600;
-      margin: 0 0 .25rem;
+    .card-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
     }
 
-    .desc {
-      margin: 0 0 .5rem;
-      opacity: .9;
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+    }
+
+    .card-desc {
+      font-size: 0.95rem;
+      color: #ccc;
+      margin-bottom: 1rem;
+      flex-grow: 1;
     }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: .25rem;
-      margin-bottom: .5rem;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .tag {
-      font-size: .75rem;
-      padding: .15rem .4rem;
-      border-radius: .25rem;
-      border: 1px solid #888;
-      opacity: .8;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
     }
 
     .links {
       display: flex;
-      gap: .5rem;
-    }
-
-    .links a {
-      text-decoration: none;
-      border: 1px solid #888;
-      padding: .25rem .5rem;
-      border-radius: .25rem;
-    }
-
-    /* Footer & Social */
-    footer {
-      padding: 2rem 1rem;
-      opacity: .9;
-      text-align: center;
-      border-top: 1px solid #ccc;
-      margin-top: 2rem;
-    }
-
-    .social-links {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
       gap: 1rem;
     }
 
+    .card-link {
+      font-size: 0.9rem;
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+    }
+
+    .card-link:hover {
+      background: var(--accent-color);
+      color: #000;
+    }
+
+    /* -------------------------------------
+       7. Footer
+       ------------------------------------- */
+    footer {
+      padding: 4rem 0 2rem;
+      text-align: center;
+      border-top: 1px solid var(--glass-border);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    }
+
+    .social-links {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
     .social-icon {
-      width: 32px;
+      width: 28px;
       height: auto;
-      transition: opacity 0.2s;
+      filter: invert(1);
+      /* Make black logos white if they aren't already */
+      opacity: 0.7;
+      transition: 0.3s;
     }
 
     .social-icon:hover {
-      opacity: 0.8;
+      opacity: 1;
+      transform: scale(1.1);
     }
 
-    @media (prefers-color-scheme: dark) {
-
-      .card,
-      header,
-      footer {
-        border-color: #444;
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
       }
 
-      .tag,
-      .links a {
-        border-color: #666;
+      .about-card {
+        padding: 1.5rem;
       }
+
+      .nav-links {
+        display: none;
+      }
+
+      /* Could add hamburger menu for mobile later */
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>Roanger</h1>
-    <p>Interactive 3D • Unreal • Graphics • Tools</p>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-content">
+      <div class="logo">Roanger</div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="home" class="hero">
+    <div class="container hero-content">
+      <h1>Creative Developer</h1>
+      <p>Interactive 3D • Unreal Engine • Game Development • Graphics</p>
+      <a href="#projects" class="btn">View My Work</a>
+    </div>
   </header>
 
   <main>
-    <section>
-      <h2>Projects</h2>
-      <div id="projects" class="grid" aria-live="polite"></div>
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="glass about-card">
+          <div class="avatar-placeholder">R</div>
+          <div class="about-text">
+            <h2 class="section-title"><span>About Me</span></h2>
+            <p>
+              Hi there! I'm a passionate developer specializing in game engine technology and interactive 3D graphics.
+              My journey involves diving deep into low-level rendering, building tools for creators, and crafting
+              immersive gameplay experiences.
+            </p>
+            <p>
+              Whether it's optimizing Vulkan renderers, scripting in Python for Maya, or building gameplay systems in
+              Unreal/Unity,
+              I love solving complex problems. I'm always looking for the next challenge in graphics and game tech.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+      <div class="container">
+        <h2 class="section-title"><span>Featured Projects</span></h2>
+        <div id="projects-grid" class="grid" aria-live="polite">
+          <!-- Projects injected via JS -->
+          <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">Loading projects...</div>
+        </div>
+      </div>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
-    <p>&copy; <span id="year"></span> Roanger - Built with GitHub Pages</p>
-    <div class="social-links">
-      <a href="https://www.linkedin.com/in/bumpmichael" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <img src="images/Linkedin-Logo-PNG.png" alt="LinkedIn" class="social-icon" />
-      </a>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Roanger. Built with passion &amp; code.</p>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/bumpmichael" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="images/Linkedin-Logo-PNG.png" alt="LinkedIn" class="social-icon" />
+        </a>
+        <a href="https://github.com/Roanger" target="_blank" rel="noopener" aria-label="GitHub">
+          <!-- Using a simple GitHub icon SVG or just text if icon missing, assuming user has one or using the Linkedin one styled -->
+          <svg class="social-icon" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+        </a>
+      </div>
     </div>
   </footer>
 
   <script>
-    const el = document.getElementById('projects');
+    const el = document.getElementById('projects-grid');
     const yearEl = document.getElementById('year');
     yearEl.textContent = new Date().getFullYear();
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
 
     async function load() {
       try {
@@ -188,26 +478,26 @@
         const projects = await res.json();
         render(projects);
       } catch (err) {
-        el.innerHTML = '<p>Could not load projects. Ensure <code>projects.json</code> exists in the repository.</p>';
+        el.innerHTML = '<p style="text-align:center;">Could not load projects. Ensure <code>projects.json</code> exists.</p>';
         console.error(err);
       }
     }
 
     function render(items) {
       el.innerHTML = items.map(p => `
-        <article class="card">
+        <article class="glass project-card">
           <div class="thumb">
             ${p.image ? `<img src="${p.image}" alt="${p.title} preview" loading="lazy" />`
-          : `${p.title}`}
+          : `<div style="display:grid;place-items:center;height:100%;color:#555;">No Image</div>`}
           </div>
-          <div class="content">
-            <h3 class="title">${p.title}</h3>
-            <p class="desc">${p.description ?? ''}</p>
+          <div class="card-content">
+            <h3 class="card-title">${p.title}</h3>
+            <p class="card-desc">${p.description ?? ''}</p>
             <div class="tags">
               ${(p.tags ?? []).map(t => `<span class="tag">${t}</span>`).join('')}
             </div>
             <div class="links">
-              ${p.links?.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join('') ?? ''}
+              ${p.links?.map(l => `<a href="${l.href}" class="card-link" target="_blank" rel="noopener">${l.label}</a>`).join('') ?? ''}
             </div>
           </div>
         </article>
