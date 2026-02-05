@@ -208,16 +208,12 @@
     }
 
     /* Placeholder for avatar if needed, using initials for now */
-    .avatar-placeholder {
+    .avatar {
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-color), #005f73);
-      display: grid;
-      place-items: center;
-      font-size: 3rem;
-      font-weight: 700;
-      color: #fff;
+      object-fit: cover;
+      border: 3px solid var(--accent-color);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
@@ -407,7 +403,7 @@
     <section id="about" class="about">
       <div class="container">
         <div class="glass about-card">
-          <div class="avatar-placeholder">R</div>
+          <img src="images/Resume_Bump_Michael.jpg" alt="Roanger Avatar" class="avatar">
           <div class="about-text">
             <h2 class="section-title"><span>About Me</span></h2>
             <p>
