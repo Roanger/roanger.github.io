@@ -57,13 +57,32 @@
       "Unreal Engine 5",
       "C++",
       "Action",
-      "Team Project"
+      "Team Project",
+      "No Longer in Development"
     ],
     "image": "images/IronReclamationBanner.png",
     "links": [
       {
         "label": "Itch.io",
         "href": "https://lghts.itch.io/iron-reclamation"
+      }
+    ]
+  },
+  {
+    "title": "Roots",
+    "description": "A peaceful farming game built in Godot 4.7, featuring inventory systems, character equipment, and multiplayer support via GD-Sync.",
+    "tags": [
+      "Godot",
+      "GDScript",
+      "Farming Sim",
+      "Multiplayer",
+      "In Development"
+    ],
+    "image": "images/roots_preview.png",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/Roanger/Roots"
       }
     ]
   }
