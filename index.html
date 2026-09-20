@@ -22,18 +22,23 @@
       --text-muted: #a0a0a0;
       --accent-color: #00d4ff;
       --accent-hover: #00a3cc;
+      --accent-glow: rgba(0, 212, 255, 0.3);
       --glass-bg: rgba(22, 27, 34, 0.7);
       --glass-border: rgba(255, 255, 255, 0.1);
       --card-bg: rgba(30, 35, 45, 0.6);
 
       /* Spacing & Layout */
-      --section-spacing: 5rem;
+      --section-spacing: 6rem;
       --container-width: 1100px;
-      --radius: 12px;
+      --radius: 16px;
     }
 
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -49,6 +54,7 @@
       font-family: 'Outfit', sans-serif;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     a {
@@ -68,6 +74,19 @@
       list-style: none;
       padding: 0;
       margin: 0;
+    }
+
+    /* -------------------------------------
+       1b. Particle Canvas
+       ------------------------------------- */
+    #star-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
     }
 
     /* -------------------------------------
@@ -94,12 +113,33 @@
       font-weight: 600;
       border-radius: 50px;
       margin-top: 1rem;
+      position: relative;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover::after {
+      width: 300px;
+      height: 300px;
     }
 
     .btn:hover {
       background: var(--accent-hover);
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+      box-shadow: 0 4px 20px var(--accent-glow);
     }
 
     .section-title {
@@ -110,6 +150,80 @@
 
     .section-title span {
       border-bottom: 3px solid var(--accent-color);
+      padding-bottom: 0.25rem;
+    }
+
+    /* Section divider */
+    .section-divider {
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+      margin: 0 auto 3rem;
+      border: none;
+    }
+
+    /* -------------------------------------
+       2b. Scroll Reveal Animations
+       ------------------------------------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Stagger children */
+    .stagger-children > * {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .stagger-children.visible > * {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* -------------------------------------
@@ -126,10 +240,11 @@
     }
 
     .navbar.scrolled {
-      background: rgba(13, 17, 23, 0.9);
-      backdrop-filter: blur(10px);
+      background: rgba(13, 17, 23, 0.92);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--glass-border);
       padding: 0.75rem 0;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     }
 
     .nav-content {
@@ -156,11 +271,95 @@
     .nav-links a {
       font-weight: 500;
       opacity: 0.8;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s;
     }
 
     .nav-links a:hover {
       opacity: 1;
       color: var(--accent-color);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Mobile hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+      z-index: 1001;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 2px;
+      background: var(--text-color);
+      transition: 0.3s;
+      display: block;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Mobile nav overlay */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(13, 17, 23, 0.97);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .mobile-nav.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .mobile-nav a {
+      font-size: 1.5rem;
+      font-weight: 600;
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .mobile-nav a:hover {
+      color: var(--accent-color);
+      opacity: 1;
     }
 
     /* -------------------------------------
@@ -173,6 +372,8 @@
       justify-content: center;
       text-align: center;
       padding-top: 60px;
+      position: relative;
+      z-index: 1;
       /* offset for fixed header */
     }
 
@@ -181,6 +382,19 @@
       font-weight: 700;
       margin-bottom: 1rem;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      animation: heroFadeIn 1s ease-out;
+    }
+
+    @keyframes heroFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .hero-content p {
@@ -188,6 +402,48 @@
       color: var(--text-muted);
       max-width: 600px;
       margin: 0 auto 2rem;
+      animation: heroFadeIn 1s ease-out 0.3s both;
+    }
+
+    .hero-content .btn {
+      animation: heroFadeIn 1s ease-out 0.6s both;
+    }
+
+    /* Typewriter cursor */
+    .typewriter-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background: var(--accent-color);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite, heroFadeIn 1s ease-out 1s both;
+    }
+
+    .scroll-indicator svg {
+      width: 30px;
+      height: 30px;
+      stroke: var(--accent-color);
+      opacity: 0.6;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
     }
 
     /* -------------------------------------
@@ -195,6 +451,8 @@
        ------------------------------------- */
     .about {
       padding: var(--section-spacing) 0;
+      position: relative;
+      z-index: 1;
     }
 
     .about-card {
@@ -205,6 +463,11 @@
       align-items: center;
       text-align: center;
       gap: 2rem;
+      transition: border-color 0.3s;
+    }
+
+    .about-card:hover {
+      border-color: rgba(0, 212, 255, 0.3);
     }
 
     /* Placeholder for avatar if needed, using initials for now */
@@ -214,7 +477,13 @@
       border-radius: 50%;
       object-fit: cover;
       border: 3px solid var(--accent-color);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 30px rgba(0, 212, 255, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .avatar:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 40px rgba(0, 212, 255, 0.35);
     }
 
     .about-text {
@@ -227,10 +496,173 @@
     }
 
     /* -------------------------------------
+       5b. Skills Section
+       ------------------------------------- */
+    .skills {
+      padding: var(--section-spacing) 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .skill-item {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border-radius: var(--radius);
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .skill-item:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 212, 255, 0.3);
+      box-shadow: 0 8px 25px rgba(0, 212, 255, 0.15);
+    }
+
+    .skill-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .skill-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .skill-level {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      margin-top: 0.75rem;
+      overflow: hidden;
+    }
+
+    .skill-level-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-color), #7c3aed);
+      border-radius: 2px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .skill-item.visible .skill-level-fill {
+      /* width set via inline style */
+    }
+
+    /* -------------------------------------
+       5c. Experience Timeline
+       ------------------------------------- */
+    .experience {
+      padding: var(--section-spacing) 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-left: 40px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-color), #7c3aed, transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      padding-left: 2rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -33px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      box-shadow: 0 0 12px var(--accent-glow);
+      z-index: 1;
+    }
+
+    .timeline-dot::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-color);
+      opacity: 0.3;
+      animation: pulse-ring 2s infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.3; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    .timeline-card {
+      padding: 1.5rem 2rem;
+      border-radius: var(--radius);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .timeline-card:hover {
+      border-color: rgba(0, 212, 255, 0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .timeline-date {
+      font-size: 0.85rem;
+      color: var(--accent-color);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-subtitle {
+      font-size: 0.95rem;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+      opacity: 0.8;
+    }
+
+    .timeline-desc {
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+
+    /* -------------------------------------
        6. Projects Section
        ------------------------------------- */
     .projects {
       padding: var(--section-spacing) 0;
+      position: relative;
+      z-index: 1;
     }
 
     .grid {
@@ -242,16 +674,16 @@
     .project-card {
       border-radius: var(--radius);
       overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
       display: flex;
       flex-direction: column;
       height: 100%;
     }
 
     .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      border-color: var(--accent-color);
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      border-color: rgba(0, 212, 255, 0.3);
     }
 
     .thumb {
@@ -261,15 +693,44 @@
       position: relative;
     }
 
-    .thumb img {
+    .thumb img,
+    .thumb video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s;
     }
 
-    .project-card:hover .thumb img {
+    .project-card:hover .thumb img,
+    .project-card:hover .thumb video {
       transform: scale(1.05);
+    }
+
+    /* Video play overlay */
+    .thumb .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s;
+      cursor: pointer;
+    }
+
+    .thumb:hover .video-overlay {
+      opacity: 1;
+    }
+
+    .video-overlay svg {
+      width: 48px;
+      height: 48px;
+      fill: white;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
     }
 
     .card-content {
@@ -306,6 +767,11 @@
       border-radius: 4px;
       background: rgba(255, 255, 255, 0.1);
       color: #fff;
+      transition: background 0.3s;
+    }
+
+    .tag:hover {
+      background: rgba(0, 212, 255, 0.2);
     }
 
     .links {
@@ -319,11 +785,43 @@
       color: var(--accent-color);
       padding: 0.4rem 1rem;
       border-radius: 20px;
+      transition: 0.3s;
     }
 
     .card-link:hover {
       background: var(--accent-color);
       color: #000;
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .status-active {
+      background: rgba(52, 211, 153, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+    }
+
+    .status-completed {
+      background: rgba(0, 212, 255, 0.2);
+      color: var(--accent-color);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .status-discontinued {
+      background: rgba(255, 255, 255, 0.1);
+      color: #888;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* -------------------------------------
@@ -334,6 +832,8 @@
       text-align: center;
       border-top: 1px solid var(--glass-border);
       background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      position: relative;
+      z-index: 1;
     }
 
     .social-links {
@@ -354,9 +854,13 @@
 
     .social-icon:hover {
       opacity: 1;
-      transform: scale(1.1);
+      transform: scale(1.2);
+      filter: invert(1) drop-shadow(0 0 8px var(--accent-glow));
     }
 
+    /* -------------------------------------
+       8. Responsive
+       ------------------------------------- */
     @media (max-width: 768px) {
       .hero-content h1 {
         font-size: 2.5rem;
@@ -370,12 +874,70 @@
         display: none;
       }
 
-      /* Could add hamburger menu for mobile later */
+      .hamburger {
+        display: flex;
+      }
+
+      .timeline {
+        padding-left: 30px;
+      }
+
+      .timeline-item {
+        padding-left: 1.5rem;
+      }
+
+      .timeline-dot {
+        left: -23px;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 1rem;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* -------------------------------------
+       9. Misc Enhancements
+       ------------------------------------- */
+    /* Glow effect on glass cards hover */
+    .glass:hover {
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.05);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-color);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Selection color */
+    ::selection {
+      background: rgba(0, 212, 255, 0.3);
+      color: #fff;
     }
   </style>
 </head>
 
 <body>
+
+  <!-- Particle Canvas -->
+  <canvas id="star-canvas"></canvas>
 
   <!-- Navigation -->
   <nav class="navbar" id="navbar">
@@ -384,17 +946,38 @@
       <div class="nav-links">
         <a href="#home">Home</a>
         <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
       </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+  </div>
 
   <!-- Hero Section -->
   <header id="home" class="hero">
     <div class="container hero-content">
-      <h1>Creative Developer</h1>
-      <p>Interactive 3D • Unreal Engine • Game Development • Graphics</p>
+      <h1 id="hero-title">Creative Developer</h1>
+      <p><span id="typewriter"></span><span class="typewriter-cursor"></span></p>
       <a href="#projects" class="btn">View My Work</a>
+    </div>
+    <div class="scroll-indicator">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
     </div>
   </header>
 
@@ -402,7 +985,7 @@
     <!-- About Section -->
     <section id="about" class="about">
       <div class="container">
-        <div class="glass about-card">
+        <div class="glass about-card reveal-scale">
           <img src="images/Resume_Bump_Michael.jpg" alt="Roanger Avatar" class="avatar">
           <div class="about-text">
             <h2 class="section-title"><span>About Me</span></h2>
@@ -421,10 +1004,33 @@
       </div>
     </section>
 
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+      <div class="container">
+        <h2 class="section-title reveal"><span>Tech Stack</span></h2>
+        <hr class="section-divider reveal">
+        <div class="skills-grid stagger-children" id="skills-grid">
+          <!-- Skills injected via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+      <div class="container">
+        <h2 class="section-title reveal"><span>Experience</span></h2>
+        <hr class="section-divider reveal">
+        <div class="timeline" id="timeline">
+          <!-- Timeline items injected via JS -->
+        </div>
+      </div>
+    </section>
+
     <!-- Projects Section -->
     <section id="projects" class="projects">
       <div class="container">
-        <h2 class="section-title"><span>Featured Projects</span></h2>
+        <h2 class="section-title reveal"><span>Featured Projects</span></h2>
+        <hr class="section-divider reveal">
         <div id="projects-grid" class="grid" aria-live="polite">
           <!-- Projects injected via JS -->
           <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">Loading projects...</div>
@@ -434,7 +1040,7 @@
   </main>
 
   <!-- Footer -->
-  <footer>
+  <footer class="reveal">
     <div class="container">
       <p>&copy; <span id="year"></span> Roanger. Built with passion &amp; code.</p>
       <div class="social-links">
@@ -453,7 +1059,225 @@
   </footer>
 
   <script>
-    const el = document.getElementById('projects-grid');
+    // ============================
+    // 1. Twinkling Star Particles
+    // ============================
+    (function () {
+      const canvas = document.getElementById('star-canvas');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 120;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function createStars() {
+        stars = [];
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 1.5 + 0.5,
+            alpha: Math.random(),
+            speed: Math.random() * 0.005 + 0.002,
+            direction: Math.random() > 0.5 ? 1 : -1,
+            drift: (Math.random() - 0.5) * 0.15
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const s of stars) {
+          s.alpha += s.speed * s.direction;
+          if (s.alpha >= 1) { s.alpha = 1; s.direction = -1; }
+          if (s.alpha <= 0.1) { s.alpha = 0.1; s.direction = 1; }
+          s.y += s.drift;
+          if (s.y > canvas.height + 10) s.y = -10;
+          if (s.y < -10) s.y = canvas.height + 10;
+
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', () => { resize(); createStars(); });
+      resize();
+      createStars();
+      draw();
+    })();
+
+    // ============================
+    // 2. Typewriter Effect
+    // ============================
+    (function () {
+      const el = document.getElementById('typewriter');
+      const phrases = [
+        'Interactive 3D & Game Development',
+        'Unreal Engine & Vulkan Rendering',
+        'C++ / C# / GDScript / Python',
+        'Game Engine Technology',
+        'Lead Engineer @ Zygobot Studios'
+      ];
+      let phraseIdx = 0, charIdx = 0, isDeleting = false;
+
+      function type() {
+        const current = phrases[phraseIdx];
+        if (isDeleting) {
+          el.textContent = current.substring(0, charIdx--);
+          if (charIdx < 0) {
+            isDeleting = false;
+            phraseIdx = (phraseIdx + 1) % phrases.length;
+            setTimeout(type, 400);
+            return;
+          }
+          setTimeout(type, 30);
+        } else {
+          el.textContent = current.substring(0, charIdx++);
+          if (charIdx > current.length) {
+            isDeleting = true;
+            setTimeout(type, 2000);
+            return;
+          }
+          setTimeout(type, 60);
+        }
+      }
+      setTimeout(type, 1000);
+    })();
+
+    // ============================
+    // 3. Scroll Reveal Observer
+    // ============================
+    (function () {
+      const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            // Stagger children delays
+            if (entry.target.classList.contains('stagger-children')) {
+              Array.from(entry.target.children).forEach((child, idx) => {
+                child.style.transitionDelay = `${idx * 0.08}s`;
+              });
+            }
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+      revealEls.forEach(el => observer.observe(el));
+
+      // Re-observe dynamically added elements
+      window.observeReveal = function () {
+        document.querySelectorAll('.reveal:not(.visible), .reveal-left:not(.visible), .reveal-right:not(.visible), .reveal-scale:not(.visible), .stagger-children:not(.visible)').forEach(el => observer.observe(el));
+      };
+    })();
+
+    // ============================
+    // 4. Skills Data & Render
+    // ============================
+    (function () {
+      const skills = [
+        { name: 'C++', icon: '⚡', level: 90 },
+        { name: 'C#', icon: '🔷', level: 85 },
+        { name: 'Vulkan', icon: '🔺', level: 80 },
+        { name: 'Unreal Engine', icon: '🎮', level: 85 },
+        { name: 'Unity', icon: '🎯', level: 80 },
+        { name: 'Godot', icon: '🤖', level: 85 },
+        { name: 'GDScript', icon: '📜', level: 85 },
+        { name: 'Python', icon: '🐍', level: 75 },
+        { name: 'Git', icon: '🔀', level: 85 },
+        { name: 'Maya', icon: '🎨', level: 70 },
+        { name: 'Blender', icon: '🧊', level: 70 },
+        { name: 'OpenGL', icon: '🖥️', level: 75 }
+      ];
+
+      const grid = document.getElementById('skills-grid');
+      grid.innerHTML = skills.map(s => `
+        <div class="glass skill-item">
+          <span class="skill-icon">${s.icon}</span>
+          <span class="skill-name">${s.name}</span>
+          <div class="skill-level">
+            <div class="skill-level-fill" data-width="${s.level}%"></div>
+          </div>
+        </div>
+      `).join('');
+
+      // Animate skill bars on scroll
+      const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const bar = entry.target.querySelector('.skill-level-fill');
+            if (bar) {
+              setTimeout(() => {
+                bar.style.width = bar.dataset.width;
+              }, 200);
+            }
+            entry.target.classList.add('visible');
+            skillObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      document.querySelectorAll('.skill-item').forEach(el => skillObserver.observe(el));
+    })();
+
+    // ============================
+    // 5. Experience Timeline
+    // ============================
+    (function () {
+      const timeline = [
+        {
+          date: '2025 – Present',
+          title: 'Manager of Interns & Lead Engineer',
+          subtitle: 'Zygobot Studios',
+          desc: 'Managing incoming interns while serving as Lead Engineer on Voxel Worlds, a new voxel-based game title. Overseeing architecture, mentoring team members, and driving technical direction.'
+        },
+        {
+          date: '2024 – 2025',
+          title: 'Systems Engineer',
+          subtitle: 'Mid Evil Nights – Zygobot Studios',
+          desc: 'Completed systems work on Mid Evil Nights including core gameplay mechanics, combat systems, and engine-level optimizations.'
+        },
+        {
+          date: '2024 – Present',
+          title: 'Solo Developer',
+          subtitle: 'Roots – Farming Sim',
+          desc: 'Building a peaceful multiplayer farming sim in Godot 4.7 with inventory systems, character equipment, and GD-Sync multiplayer. Demo nearly ready for release.'
+        },
+        {
+          date: '2023 – Present',
+          title: 'Solo Developer',
+          subtitle: 'Personal Projects',
+          desc: 'Developing multiple game projects including Cyber Rayne (C++/Vulkan JRPG), Tinker Action RPG (Godot), and Squid Bubbles (Unity). Continuously exploring new tech and pushing creative boundaries.'
+        }
+      ];
+
+      const el = document.getElementById('timeline');
+      el.innerHTML = timeline.map((item, i) => `
+        <div class="timeline-item ${i % 2 === 0 ? 'reveal-left' : 'reveal-right'}">
+          <div class="timeline-dot"></div>
+          <div class="glass timeline-card">
+            <div class="timeline-date">${item.date}</div>
+            <h3 class="timeline-title">${item.title}</h3>
+            <div class="timeline-subtitle">${item.subtitle}</div>
+            <p class="timeline-desc">${item.desc}</p>
+          </div>
+        </div>
+      `).join('');
+
+      window.observeReveal();
+    })();
+
+    // ============================
+    // 6. Projects
+    // ============================
+    const projectsEl = document.getElementById('projects-grid');
     const yearEl = document.getElementById('year');
     yearEl.textContent = new Date().getFullYear();
 
@@ -474,19 +1298,37 @@
         const projects = await res.json();
         render(projects);
       } catch (err) {
-        el.innerHTML = '<p style="text-align:center;">Could not load projects. Ensure <code>projects.json</code> exists.</p>';
+        projectsEl.innerHTML = '<p style="text-align:center;">Could not load projects. Ensure <code>projects.json</code> exists.</p>';
         console.error(err);
       }
     }
 
+    function getStatusBadge(status) {
+      if (!status) return '';
+      const map = {
+        'active': ['In Development', 'status-active'],
+        'completed': ['Completed', 'status-completed'],
+        'discontinued': ['Discontinued', 'status-discontinued']
+      };
+      const [label, cls] = map[status] || ['', ''];
+      return label ? `<span class="status-badge ${cls}">${label}</span>` : '';
+    }
+
     function render(items) {
-      el.innerHTML = items.map(p => `
-        <article class="glass project-card">
+      projectsEl.innerHTML = items.map((p, i) => `
+        <article class="glass project-card reveal" style="transition-delay: ${i * 0.1}s">
           <div class="thumb">
-            ${p.image ? `<img src="${p.image}" alt="${p.title} preview" loading="lazy" />`
-          : `<div style="display:grid;place-items:center;height:100%;color:#555;">No Image</div>`}
+            ${p.video
+          ? `<video src="${p.video}" muted loop preload="metadata" poster="${p.image || ''}"></video>
+                 <div class="video-overlay" onclick="this.previousElementSibling.play(); this.style.display='none'">
+                   <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                 </div>`
+          : p.image
+            ? `<img src="${p.image}" alt="${p.title} preview" loading="lazy" />`
+            : `<div style="display:grid;place-items:center;height:100%;color:#555;">No Image</div>`}
           </div>
           <div class="card-content">
+            ${getStatusBadge(p.status)}
             <h3 class="card-title">${p.title}</h3>
             <p class="card-desc">${p.description ?? ''}</p>
             <div class="tags">
@@ -498,9 +1340,33 @@
           </div>
         </article>
       `).join('');
+
+      window.observeReveal();
     }
 
     load();
+
+    // ============================
+    // 7. Hamburger Menu
+    // ============================
+    (function () {
+      const hamburger = document.getElementById('hamburger');
+      const mobileNav = document.getElementById('mobile-nav');
+
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('open');
+        document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+      });
+
+      mobileNav.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          mobileNav.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      });
+    })();
   </script>
 </body>
 

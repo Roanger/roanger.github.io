@@ -1,18 +1,48 @@
 [
   {
-    "title": "Squid Bubbles",
-    "description": "A charming underwater exploration game where you discover and learn about marine life.",
+    "title": "Voxel Worlds",
+    "description": "A voxel-based game currently in development at Zygobot Studios. Serving as Lead Engineer, driving architecture and technical direction for the project.",
     "tags": [
-      "Unity",
-      "C#",
-      "Game Development",
-      "2D"
+      "Zygobot Studios",
+      "Lead Engineer",
+      "Voxel",
+      "In Development"
     ],
-    "image": "images/squid-bubbles.png",
+    "image": "",
+    "video": "",
+    "status": "active",
+    "links": []
+  },
+  {
+    "title": "Mid Evil Nights",
+    "description": "Completed systems engineering work at Zygobot Studios including core gameplay mechanics, combat systems, and engine-level optimizations.",
+    "tags": [
+      "Zygobot Studios",
+      "Systems Engineering",
+      "Game Development"
+    ],
+    "image": "",
+    "video": "",
+    "status": "completed",
+    "links": []
+  },
+  {
+    "title": "Roots",
+    "description": "A peaceful farming game built in Godot 4.7, featuring inventory systems, character equipment, and multiplayer support via GD-Sync. Demo nearly ready for release.",
+    "tags": [
+      "Godot",
+      "GDScript",
+      "Farming Sim",
+      "Multiplayer",
+      "In Development"
+    ],
+    "image": "images/roots_preview.png",
+    "video": "",
+    "status": "active",
     "links": [
       {
         "label": "GitHub",
-        "href": "https://github.com/Roanger/Squid-Bubbles"
+        "href": "https://github.com/Roanger/Roots"
       }
     ]
   },
@@ -26,6 +56,7 @@
       "JRPG"
     ],
     "image": "images/cyber-rayne.png",
+    "status": "active",
     "links": [
       {
         "label": "GitHub",
@@ -43,10 +74,29 @@
       "In Development"
     ],
     "image": "images/Tinker_Title_Screen.png",
+    "status": "active",
     "links": [
       {
         "label": "GitHub",
         "href": "https://github.com/Roanger/ActionRPG-In_Progress-"
+      }
+    ]
+  },
+  {
+    "title": "Squid Bubbles",
+    "description": "A charming underwater exploration game where you discover and learn about marine life.",
+    "tags": [
+      "Unity",
+      "C#",
+      "Game Development",
+      "2D"
+    ],
+    "image": "images/squid-bubbles.png",
+    "status": "completed",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/Roanger/Squid-Bubbles"
       }
     ]
   },
@@ -57,32 +107,14 @@
       "Unreal Engine 5",
       "C++",
       "Action",
-      "Team Project",
-      "No Longer in Development"
+      "Team Project"
     ],
     "image": "images/IronReclamationBanner.png",
+    "status": "discontinued",
     "links": [
       {
         "label": "Itch.io",
         "href": "https://lghts.itch.io/iron-reclamation"
-      }
-    ]
-  },
-  {
-    "title": "Roots",
-    "description": "A peaceful farming game built in Godot 4.7, featuring inventory systems, character equipment, and multiplayer support via GD-Sync.",
-    "tags": [
-      "Godot",
-      "GDScript",
-      "Farming Sim",
-      "Multiplayer",
-      "In Development"
-    ],
-    "image": "images/roots_preview.png",
-    "links": [
-      {
-        "label": "GitHub",
-        "href": "https://github.com/Roanger/Roots"
       }
     ]
   }
