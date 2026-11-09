@@ -14,6 +14,90 @@
     "links": []
   },
   {
+    "title": "Performance Auditor",
+    "description": "A Vulkan-based CI/CD GPU performance profiling tool for automated regression detection with zero game code changes. Intercepts GPU commands via a custom C++ Vulkan layer to track draw calls, VRAM allocations, GPU timestamps, and CPU-GPU fence sync, streaming telemetry via gRPC to a Go/TimescaleDB backend and React cloud dashboard.",
+    "tags": [
+      "C++",
+      "Vulkan Layer",
+      "Go / gRPC",
+      "React",
+      "CI/CD Profiling"
+    ],
+    "image": "images/performance-auditor.svg",
+    "video": "",
+    "status": "active",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/Roanger/performance-auditor"
+      }
+    ]
+  },
+  {
+    "title": "Orrery-Sol",
+    "description": "A fully self-contained, autonomous space-colony simulation built in Godot 4.7. Generates an entire galaxy from a seed—star systems, planets, ~450 colonies, and 10,000+ colonists—with 100% procedural art, synthesized audio, and grammar-driven chronicles running deterministically at 100× speed.",
+    "tags": [
+      "Godot 4.7",
+      "GDScript",
+      "Space Colony Sim",
+      "Procedural Generation",
+      "Deterministic Sim"
+    ],
+    "image": "images/orrery-title.jpg",
+    "video": "",
+    "status": "completed",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/Roanger/Orrery-Sol"
+      }
+    ]
+  },
+  {
+    "title": "VS Mod Manager",
+    "description": "A cross-platform desktop mod manager for Vintage Story built with C#, .NET 9, and Avalonia UI. Features ModDB browsing across 9,000+ mods, one-click updates with backup rollback, automatic dependency resolution, and profile management for Windows and Linux.",
+    "tags": [
+      "C#",
+      ".NET 9",
+      "Avalonia UI",
+      "Desktop App",
+      "Cross-Platform"
+    ],
+    "image": "images/vs-mod-manager.png",
+    "video": "",
+    "status": "completed",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/Roanger/VS_Mod_Manager"
+      },
+      {
+        "label": "Releases",
+        "href": "https://github.com/Roanger/VS_Mod_Manager/releases"
+      }
+    ]
+  },
+  {
+    "title": "Roots",
+    "description": "A cozy multiplayer farming simulation built in Godot 4.7 with Jolt Physics and GD-Sync. Features procedural Transvoxel smooth SDF terrain with SQLite persistence, 10 biomes, farming, 40+ crafting recipes, a 7-profession skill system, animal husbandry, AI combat, and village NPCs with quests.",
+    "tags": [
+      "Godot 4.7",
+      "GDScript",
+      "Voxel Terrain",
+      "Farming Sim",
+      "Multiplayer"
+    ],
+    "image": "images/roots_preview.png",
+    "video": "",
+    "status": "active",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/Roanger/Roots"
+      }
+    ]
+  },
+  {
     "title": "Mid Evil Nights",
     "description": "Completed systems engineering work at Zygobot Studios including core gameplay mechanics, combat systems, and engine-level optimizations.",
     "tags": [
@@ -27,35 +111,16 @@
     "links": []
   },
   {
-    "title": "Roots",
-    "description": "A peaceful farming game built in Godot 4.7, featuring inventory systems, character equipment, and multiplayer support via GD-Sync. Demo nearly ready for release.",
-    "tags": [
-      "Godot",
-      "GDScript",
-      "Farming Sim",
-      "Multiplayer",
-      "In Development"
-    ],
-    "image": "images/roots_preview.png",
-    "video": "",
-    "status": "active",
-    "links": [
-      {
-        "label": "GitHub",
-        "href": "https://github.com/Roanger/Roots"
-      }
-    ]
-  },
-  {
     "title": "Cyber Rayne",
-    "description": "A cyberpunk-themed JRPG featuring pixel-art graphics and Vulkan-based rendering.",
+    "description": "A 2D cyberpunk JRPG built from scratch using modern C++ and a custom Vulkan renderer, featuring strategic turn-based combat, class-based character kits, and a custom UI framework.",
     "tags": [
       "C++",
       "Vulkan",
-      "Game Development",
+      "Custom Engine",
       "JRPG"
     ],
     "image": "images/cyber-rayne.png",
+    "video": "",
     "status": "active",
     "links": [
       {
@@ -65,15 +130,16 @@
     ]
   },
   {
-    "title": "Tinker Action RPG",
-    "description": "A work-in-progress Action RPG developed in Godot 4.4, featuring a flexible class system and dynamic combat.",
+    "title": "ActionRPG: Project Overpowered",
+    "description": "An Action RPG developed in Godot 4.4 inspired by Path of Exile and Torchlight Infinite. Start from nothing and engineer an overpowered robot across 5 starting classes in the post-human ruins of civilization.",
     "tags": [
-      "Godot",
+      "Godot 4.4",
       "GDScript",
       "Action RPG",
       "In Development"
     ],
     "image": "images/Tinker_Title_Screen.png",
+    "video": "",
     "status": "active",
     "links": [
       {
@@ -92,6 +158,7 @@
       "2D"
     ],
     "image": "images/squid-bubbles.png",
+    "video": "",
     "status": "completed",
     "links": [
       {
@@ -110,6 +177,7 @@
       "Team Project"
     ],
     "image": "images/IronReclamationBanner.png",
+    "video": "",
     "status": "discontinued",
     "links": [
       {
